@@ -1,1 +1,14 @@
-﻿<Properties StartupItem="Excel\Excel.csproj" />
+﻿<Properties NuGet.AddPackagesDialog.IncludePrerelease="True" StartupItem="Excel\Excel.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Excel\packages.config">
+    <Files>
+      <File FileName="Excel\Program.cs" Line="15" Column="41" />
+      <File FileName="Excel\IOWrite.cs" Line="11" Column="3" />
+      <File FileName="Excel\DataStruct.cs" Line="22" Column="1" />
+      <File FileName="Excel\packages.config" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Excel PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

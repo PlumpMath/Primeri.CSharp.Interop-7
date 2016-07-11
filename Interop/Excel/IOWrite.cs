@@ -1,5 +1,5 @@
 ﻿using System;
-using InteropEcel = Microsoft.Office.Interop.Excel;
+using InteropExcel = Microsoft.Office.Interop.Excel;
 
 namespace Excel
 {
@@ -7,7 +7,7 @@ namespace Excel
 	{
 
 		private DataStruct _data;
-		private InteropEcel.Application excel;
+		private InteropExcel.Application excel;
 
 
 		public IOWrite( DataStruct data )
@@ -19,11 +19,15 @@ namespace Excel
 			try
 			{
 				//Междинни проверки
+				excel = InteropExcel.Application ();
+				if (excel = null) return false;
 
+
+
+
+				excel.Quit();
 				return true;
-			}
-			catch
-			{
+			}catch{
 			}
 			return false;
 		}
