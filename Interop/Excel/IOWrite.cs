@@ -1,5 +1,6 @@
 ﻿using System;
 using InteropExcel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace Excel
 {
@@ -13,7 +14,7 @@ namespace Excel
 		{
 			
 
-			Console.WriteLine("excell=" + excel + getPath());
+			_data=data;
 
 		}
 
@@ -35,6 +36,15 @@ namespace Excel
 				sheet.Name = "Таблица 1";
 
 				//Попълване на таблицата
+				int i = 1;
+				addRow(new DataRow ("Име","Фамилия","Години"),i++,true,500);i++;
+
+				foreach (DataRow row in _data.table)
+				{
+					addRow(row,i++,false,-1);
+				}
+
+				i++; addRow(new DataRow("Брой редове", "", _data.table.Count.ToString()),i++,true,-1);
 
 
 
@@ -43,18 +53,45 @@ namespace Excel
 				excel.DisplayAlerts = false;    //Изключване на съобщения от Excel
 				workbook.Close();
 				excel.Quit();
+
+				//Освобождаване паметта от Excel
+
+				if (workbook != null) Marshal.ReleaseComObject(workbook);
+				if (sheet!= null) Marshal.ReleaseComObject(sheet);
+				if (excel != null) Marshal.ReleaseComObject(excel);
+
+				workbook = null;
+				sheet = null;
+				excel = null;
+
+				GC.Collect();
+
 				return true;
 			}catch{
 			}
 			return false;
 		}
 
-		public void addRow(DataRow _row)
+				            public void addRow(DataRow _dataRow, int _indexRow, bool isBold, int color)
 		{
 			try
 			{
+				InteropExcel.Range range;
+						//Форматиране
+				range = excel.Range["A" + _indexRow.ToString(), "C" + _indexRow.ToString()];
+						if (color > 0) range.Interior.Color = color;
+						if (isBold) range.Font.Bold = isBold;
 
 
+				//Данни клетка по клетка
+				range = excel.Range[ "A" + _indexRow.ToString(), "A" + _indexRow.ToString() ];
+				range.Value2 = _dataRow.firstName;
+
+				range = excel.Range["B" + _indexRow.ToString(), "B" + _indexRow.ToString()];
+				range.Value2 = _dataRow.lastName;
+
+				range = excel.Range["C" + _indexRow.ToString(), "C" + _indexRow.ToString()];
+				range.Value2 = _dataRow.age;
 			}
 			catch
 			{

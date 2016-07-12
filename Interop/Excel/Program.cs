@@ -18,7 +18,7 @@ namespace Excel
 			data.printTable();
 
 			write.exportTable();
-			//write.runFile();
+			write.runFile();
 
 			
 		}
